@@ -908,6 +908,14 @@ LIMIT_MAKER
                     subscribe(symbol.toLowerCase()+'@aggTrade', callback, reconnect);
                 }
             },
+            recentTrades: function(symbols, callback) {
+                for ( let symbol of symbols ) {
+                    let reconnect = function() {
+                        if ( options.reconnect ) subscribe(symbol.toLowerCase()+'@trade', callback, reconnect);
+                    };
+                    subscribe(symbol.toLowerCase()+'@trade', callback, reconnect);
+                }
+            },
             chart: function chart(symbols, interval, callback) {
                 if ( typeof symbols === 'string' ) symbols = [symbols]; // accept both strings and arrays
                 for ( let symbol of symbols ) {
